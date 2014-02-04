@@ -1,12 +1,100 @@
 <?php 
+	@include 'libs/connect.php';
 	session_start();
-	if(!empty($_SESSION['login'])){
-		echo "Bienvenue ici ".$_SESSION['login'];
-		echo " votre SID est ".session_id();
+	$con = connectBD();
+
+	if(isset($_SESSION['login'])){
+
+	function ajout(){
+		$req_idmax = "select MAX(id) in activite";
+		$idmax = mysql_query($req_idmax);
+
+		$name = $_SESSION['login'];
+	}
+		// $act = "select * from activite where user = '".$_SESSION['login']."'";
+		// $res = mysql_query($act);
+		// mysql_fetch_field($res);
+	
+		// $datejour = date("j-n-Y");
+
+		// $req_idmax = "select MAX(id) in activite";
+		// $idmax = mysql_query($req_idmax);
+
+		
+		// $d = $_POST['jesuisladate'];
+		// echo("je suis la date : ");
+		// echo($d);				
 	}
 	else
 		header('Location: authentification.php');
  ?>
-<form action = "deconnect.php" method = 'POST'>
-<input type = 'submit' value = 'deconnection'>
-</from>
+
+<!DOCTYPE>
+
+<html>
+	<head>
+		<title>
+
+		</title>
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap-theme.min.css">
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+
+		<script src="//code.jquery.com/jquery-1.9.1.js"></script>
+		<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+		<link rel="stylesheet" href="/resources/demos/style.css">
+		<script>
+			$(function() {
+			$( "#date" ).datepicker();
+			});
+		</script>
+	</head>
+
+	<body>
+		<div class="row">
+			<div class="col-md-8">
+				<div class="jumbotron">
+					<h1>Planning</h1>
+					<p>Bienvenu <?php echo $_SESSION['login']; ?></p>
+					<button href="sqd" class="btn btn-primary">Deconnexion</button>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="row">
+
+			<div class="col-md-6 panel panel-default">
+				<div class="well">
+					<p>Planning du jour</p>
+				</div>
+			</div>
+
+			<div class="col-md-6 panel panel-default">
+				<div class="well">
+					<p>Ajouter</p>
+				</div>
+				<p>Date: <input type="text" id="date"></p>
+
+				<select name = "type">
+					<?php foreach($con->query("SELECT * FROM type") as $data) {?>
+					<option value="<?php echo $data['id']; ?>"> <?php echo $data['nom']; ?> </option>
+					<?php } ?>
+				</select>
+
+				<button type="submit" class="btn btn-primary">Envoyer</button>
+
+				<form action = "libs/deconnect.php" method = 'POST'>
+					<button class="btn btn-default" type='submit'>Deconnexion</button>
+				</form>
+			
+			</div>
+
+		</div>
+
+	</body>
+</html>
