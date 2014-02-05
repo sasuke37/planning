@@ -13,5 +13,12 @@
 		}
 		return $con;
 	}
+	
+	function connectmysql(){
+		$db = mysql_connect(SERVER, USER, PASSWD); 
+
+		// on sélectionne la base 
+		mysql_select_db(BASE,$db);
+	}
 
 ?>
