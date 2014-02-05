@@ -11,9 +11,22 @@
 
 		$name = $_SESSION['login'];
 	}
-		// $act = "select * from activite where user = '".$_SESSION['login']."'";
-		// $res = mysql_query($act);
-		// mysql_fetch_field($res);
+	
+	function afficher(){
+		connectmysql();
+		// on crée la requête SQL 
+		$sql = "SELECT type, date FROM activite WHERE nomuser = '".$_SESSION['login']."'"; 
+		// on envoie la requête 
+		$req = mysql_query($sql) or die('Erreur SQL !<br>'.$sql.'<br>'.mysql_error()); 
+		// on fait une boucle qui va faire un tour pour chaque enregistrement 
+		while($data = mysql_fetch_assoc($req)){ 
+	    		// on affiche les informations de l'enregistrement en cours 
+	    		echo ' '.$data['type'].' '.$data['date'].'<br>'; 
+		} 
+
+		// on ferme la connexion à mysql 
+		mysql_close(); 
+	}
 	
 		// $datejour = date("j-n-Y");
 
