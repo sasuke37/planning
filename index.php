@@ -60,7 +60,7 @@
 		echo $errorMessage;
 	}
 	 ?>
-	<form action = "authentification.php" method = "post">
+	<form action = "index.php" method = "post">
 		<fieldset>
 			<legend>iddentifiez-vous</legend>
 			<p>
