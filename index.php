@@ -28,6 +28,7 @@
 			// $sql = "SELECT * from user where login = '".$_POST["login"]."' and passwd = '".$_POST["mdp"]."'";
 
 			if($stmt->rowCount() != 1){
+				$incorect=1;
 				$errorMessage = 'mdp ou id incorrect !';
 			} 
 
@@ -41,7 +42,7 @@
 		}
 	}
 	else{
-	$errorMessage = 'veuillez remplir vos iddentifiants !';
+		$errorMessage = 'veuillez remplir vos iddentifiants !';
 	}
 }
  ?>
@@ -51,29 +52,55 @@
 <!doctype html>
 
 <html>
-<head>
-	<title>formulaire d'iddentification</title>
-</head>
-<body>
-	<?php 
-	if (!empty($errorMessage)) {
-		echo $errorMessage;
-	}
-	 ?>
-	<form action = "index.php" method = "post">
-		<fieldset>
-			<legend>iddentifiez-vous</legend>
-			<p>
-				<label for="login">Login : </label>
-				<input type="texte" name = "login" value = "" />
-			</p>
-			<p>
-				<label for="mdp">mdp : </label>
-				<input type="password" name = "mdp" value = "" />
-				<input type = "submit" value = "se logguer"> 
-			</p>
-		</fieldset>
-	</form>
+	<head>
+		<meta charset"utf-8">
+		<title>Authentification</title>
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap-theme.min.css">
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
 
-</body>
+	</head>
+	<body>
+		<div class="col-md-8 col-md-offset-2">
+			<div class="panel panel-default">
+				<form action = "index.php" method = "post">
+					
+					<div class="well">
+						<h4>Identifiez-vous</h4>
+					</div>
+
+
+					<?php 
+						if(isset($incorect)) {
+					?>
+					 	<div class="alert alert-danger alert-dismissable">
+							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+							<strong> /!\ </strong> Login ou mot de passe incorrects.<strong> /!\ </strong>
+						</div>
+
+					<?php 
+						}
+					?>
+
+
+					<div class="form-group">
+						<label for="login">Login : </label>
+						<input class="form-control" type="texte" name="login" placeholder="Votre login..." value = "" />
+					</div>
+
+					<div class="form-group">
+						<label for="mdp">Mot de passe : </label>
+						<input class="form-control" type="password" name="mdp" placeholder="Votre mot de passe..." value = "" />
+					</div>
+					<div class="form-group">
+						<button class="btn btn-primary" type="submit">Se Connecter</button> 
+					</div>
+				</form>
+			</div>
+		</div>
+
+	</body>
 </html>
